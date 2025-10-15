@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# PyCharm / JetBrains
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs & temporary files
+*.log
+*.tmp
