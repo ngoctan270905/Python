@@ -7,10 +7,10 @@
 # Tên biến không được chứa ký tự đặc biệt và không được trùng với từ khóa
 
 # Ví dụ khai báo biến
-a = 5 # python tự động xác định a là kiểu int
-b = 3.14 # python tự động xác định b là kiểu float
-name = "Tan" # python tự động xác định name là kiểu str
-is_student = True # python tự động xác định is_student là kiểu bool
+#a = 5 # python tự động xác định a là kiểu int
+#b = 3.14 # python tự động xác định b là kiểu float
+#name = "Tan" # python tự động xác định name là kiểu str
+#is_student = True # python tự động xác định is_student là kiểu bool
 
 # Ví dụ đặt tên biến đúng quy tắc
 my_name1 = "Tan" # đúng
