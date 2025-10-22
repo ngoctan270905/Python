@@ -1,3 +1,31 @@
+def bao_cao_thong_ke(danh_sach_su_kien, lich_su_ban_ve):
+    su_kien_sap_het = []
+    for sk in danh_sach_su_kien:
+        if sk['ve_con_lai'] < 20:
+            su_kien_sap_het.append(sk['ten_su_kien'])
+
+    tong_gia_tri_con_lai = 0
+    for sk in danh_sach_su_kien:
+        tong_gia_tri_con_lai = tong_gia_tri_con_lai + sk["gia_ve"] * sk["ve_con_lai"]
+
+    su_kien_da_ban = set()
+    for gd in lich_su_ban_ve:
+        su_kien_da_ban.add(gd['ma_su_kien'])
+
+    print('BÁO CÁO THỐNG KÊ')
+    print('Sự kiện sắp hết vé: ')
+    if len(su_kien_sap_het) > 0:
+        for ten in su_kien_sap_het:
+            print("-", ten)
+    else:
+        print('Không có sự kiện nào sắp hết vé')
+
+    print(f'Tổng giá trị vé còn lại: {tong_gia_tri_con_lai}')
+    print("Sự kiện đã bán vé: ", ", ".join(su_kien_da_ban))
+
+
+
+
 def quan_ly_ve_da_ban(su_kien_da_ban, lich_su_ban_ve, danh_sach_su_kien):
     while True:
         print('')
@@ -52,9 +80,6 @@ def quan_ly_ve_da_ban(su_kien_da_ban, lich_su_ban_ve, danh_sach_su_kien):
             else:
                 for giao_dich in lich_su_ban_ve:
                     print(f"Mã sự kiện: {giao_dich['ma_su_kien']} - Mã vé: {giao_dich['ma_ve']} - Số lượng: {giao_dich['so_luong']}")
-
-
-
 
 def quan_ly_nha_tai_tro(nha_tai_tro):
     while True: # VÒNG LĂjp
@@ -122,7 +147,6 @@ def quan_ly_nha_tai_tro(nha_tai_tro):
 
         if lua_chon == '6':
             break
-
 
 def quan_ly_su_kien(danh_sach_su_kien):
     while True: # dùng vòng lặp để người dùng có thể thao tác lieen tục
@@ -245,11 +269,15 @@ def main():
     }
 
     su_kien_da_ban = set()
-    lich_su_ban_ve = []
+    lich_su_ban_ve = [
+        {"ma_su_kien": "SK001", "ma_ve": "V001", "so_luong": 5},
+        {"ma_su_kien": "SK003", "ma_ve": "V002", "so_luong": 10}
+    ]
 
     print('1. Quản lí sự kiện')
     print('2. Quản lí nhà tài trợ')
     print('3. Quản lí vé đã bán')
+    print('4. Báo cáo thống kê')
     menu = int(input('Vui lòng chọn menu: '))
 
     if menu == 1:
@@ -258,6 +286,8 @@ def main():
         quan_ly_nha_tai_tro(nha_tai_tro)
     elif menu == 3:
         quan_ly_ve_da_ban(su_kien_da_ban, lich_su_ban_ve, danh_sach_su_kien)
+    elif menu == 4:
+        bao_cao_thong_ke(danh_sach_su_kien, lich_su_ban_ve)
 
 
 # main chạy chính
