@@ -1,3 +1,72 @@
+
+def quan_ly_nha_tai_tro(nha_tai_tro):
+    while True: # VÒNG LĂjp
+        print('')
+        print('QUẢN LÍ NHÀ TÀI TRỢ')
+        print('1. Thêm nhà tài trợ mới')
+        print('2. Xóa nhà tài trợ')
+        print('3. Cập nhật số tiền của nhà tài trợ')
+        print('4. Tìm và in thông tin nhà tài trợ theo mã')
+        print('5. Xem danh sách tất cả nhà tài trợ')
+        print('6. Thoát')
+
+        lua_chon = input('Lựa chọn của bạn: ')
+
+        if lua_chon == '1':
+            print('THÊM NHÀ TÀI TRỢ')
+            ma = input('Nhập mã nhà tài trợ: ').strip()
+            if ma in nha_tai_tro: # dùng in để kiểm tra xem ma có tồn tại trong nha_tai_tro chưa
+                print('Mã nhà tài trợ này đã tồn tại')
+                continue # nếu tồn tại dừng vòng lặp hiện tại chuyển sang cái mới
+            ten = input('Nhập tên nhà tài trợ:').strip()
+            so_tien = float(input('Nhập số tiền tài trợ: '))
+
+            if so_tien < 1000000: # kiểm tra
+                print('Số tiền tài trợ phải từ 1.000.000đ trở lên: ')
+                continue
+
+            nha_tai_tro[ma] = (ten, so_tien) # th êm dữ liệu vào trong dict
+            print('Thêm nhà tài trợ thành công')
+
+        if lua_chon == '2':
+            print('XÓA NHÀ TÀI TRỢ')
+            ma = input('Nhập mã tài trợ cần xóa: ').strip()
+            if ma in nha_tai_tro:
+                del nha_tai_tro[ma]
+                print('Đã xóa nhà tài trợ thành công')
+            else:
+                print('Mã nhà tài trợ không tồn tại')
+
+        if lua_chon == '3':
+            print('Cập nhật số tiền của nhà tài trợ')
+            ma = input('Nhập mã tài trợ cần cập nhật: ').strip()
+            if ma in nha_tai_tro:
+                ten = nha_tai_tro[ma][0]
+                so_tien = float(input('Nhập số tiền tài trợ mới: '))
+                nha_tai_tro[ma] = (ten, so_tien)
+                print('Cập nhật số tiền của nhà tài trợ thành công')
+            else:
+                print('Mã nhà tài trợ không tồn tại')
+
+        if lua_chon == '4':
+            print('THÔNG TIN TÀI TRỢ')
+            ma = input('Nhập mã tài trợ cần tìm: ').strip()
+            if ma in nha_tai_tro:
+                (ten, so_tien) = nha_tai_tro[ma]
+                print(f"Mã: {ma} - Tên nhà tài trợ: {ten} - Số tien tài trợ: {so_tien}")
+
+
+
+        if lua_chon == '5':
+            print('DANH SÁCH NHÀ TÀI TRỢ')
+            for i, ma in enumerate(nha_tai_tro, start=1): # lặp lấy key của dict
+                ten, so_tien = nha_tai_tro[ma] # ma se la key và nha_tai_tro[ma] lưu value ten, so_tien của tuple
+                print(f"{i}. Mã tài trợ: {ma} - Tên nhà tài trợ: {ten} - Số tiền tài trợ: {so_tien}")
+
+        if lua_chon == '6':
+            break
+
+
 def quan_ly_su_kien(danh_sach_su_kien):
     while True: # dùng vòng lặp để người dùng có thể thao tác lieen tục
         print('')
@@ -100,8 +169,6 @@ def quan_ly_su_kien(danh_sach_su_kien):
             print('CHào bạn.')
             break
 
-
-
 def main():
     # tạo dữ liệu mẫu , list
     danh_sach_su_kien = [
@@ -111,7 +178,7 @@ def main():
         {"ma_su_kien": "SK004", "ten_su_kien": "Workshop làm gốm nghệ thuật", "gia_ve": 120000.0, "ve_con_lai": 80},
         {"ma_su_kien": "SK005", "ten_su_kien": "Chương trình hòa nhạc đường phố", "gia_ve": 60000.0, "ve_con_lai": 250}
     ]
-    # Tạo dictionary gồm key và value: value sẽ chứa set
+    # Tạo dictionary gồm key và value: value sẽ chứa tuple
     nha_tai_tro = {
         "NTT001": ("Công ty Cổ phần Văn Hóa Việt", 5000000.0),
         "NTT002": ("Tập đoàn Sách Toàn Cầu", 8000000.0),
@@ -120,7 +187,14 @@ def main():
         "NTT005": ("Ngân hàng XYZ", 15000000.0)
     }
 
-    quan_ly_su_kien(danh_sach_su_kien)
+    print('1. Quản lí sự kiện')
+    print('2. Quản lí nhà tài trợ')
+    menu = int(input('Vui lòng chọn menu: '))
+
+    if menu == 1:
+        quan_ly_su_kien(danh_sach_su_kien)
+    elif menu == 2:
+        quan_ly_nha_tai_tro(nha_tai_tro)
 
 
 # main chạy chính
