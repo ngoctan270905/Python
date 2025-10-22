@@ -1,3 +1,60 @@
+def quan_ly_ve_da_ban(su_kien_da_ban, lich_su_ban_ve, danh_sach_su_kien):
+    while True:
+        print('')
+        print('QUẢN LÍ VÉ ĐÃ BÁN')
+        print('1. Thêm giao dịch bán vé')
+        print('2. Kiểm tra sự kiện')
+        print('3. In danh sách giao dịch')
+        print('4. Xóa giao dịch với vé = 0')
+        print('')
+
+        menu = int(input('Vui lòng chọn menu: '))
+
+        if menu == 1:
+            print('THÊM GIAO DỊCH')
+            ma_su_kien = input('Nhập mã sự kiện: ').strip().upper()
+            kiem_tra_ma = False
+            for ma in danh_sach_su_kien:
+                if ma['ma_su_kien'] == ma_su_kien:
+                    kiem_tra_ma = True
+                    break
+
+            if not kiem_tra_ma:
+                print('Mã sự kiện này ko tồn tại.')
+            else:
+
+             ma_ve = input('Nhập mã vé: ').strip().upper()
+             so_luong = int(input('Nhập số lượng vé bán: '))
+
+             giao_dich = {
+                'ma_su_kien': ma_su_kien,
+                'ma_ve': ma_ve,
+                'so_luong': so_luong,
+             }
+
+             lich_su_ban_ve.append(giao_dich)
+             su_kien_da_ban.add(ma_su_kien)
+             print('Đã thêm giao dịch và cập nhật sự kiện đã bán')
+
+
+        elif menu == 2:
+            print('KTRA SỰ KIỆN CÓ VÉ BÁN TRONG NGÀY')
+            ma_su_kien = input('Nhập mã sự kiện cần kiểm tra: ').strip().upper()
+            if ma_su_kien in su_kien_da_ban:
+                print(f"Sự kiện {ma_su_kien} đã có vé bán trong ngày.")
+            else:
+                print('Sự kiện {ma_su_kien} chưa có vé bán.')
+
+        elif menu == 3:
+            print('DANH SÁCH GIAO DỊCH')
+            if not lich_su_ban_ve:
+                print('Chưa có danh sách giao dịch nào')
+            else:
+                for giao_dich in lich_su_ban_ve:
+                    print(f"Mã sự kiện: {giao_dich['ma_su_kien']} - Mã vé: {giao_dich['ma_ve']} - Số lượng: {giao_dich['so_luong']}")
+
+
+
 
 def quan_ly_nha_tai_tro(nha_tai_tro):
     while True: # VÒNG LĂjp
@@ -187,14 +244,20 @@ def main():
         "NTT005": ("Ngân hàng XYZ", 15000000.0)
     }
 
+    su_kien_da_ban = set()
+    lich_su_ban_ve = []
+
     print('1. Quản lí sự kiện')
     print('2. Quản lí nhà tài trợ')
+    print('3. Quản lí vé đã bán')
     menu = int(input('Vui lòng chọn menu: '))
 
     if menu == 1:
         quan_ly_su_kien(danh_sach_su_kien)
     elif menu == 2:
         quan_ly_nha_tai_tro(nha_tai_tro)
+    elif menu == 3:
+        quan_ly_ve_da_ban(su_kien_da_ban, lich_su_ban_ve, danh_sach_su_kien)
 
 
 # main chạy chính
