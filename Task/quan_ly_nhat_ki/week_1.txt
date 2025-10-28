@@ -1,0 +1,4 @@
+Tuần: 1
+Số giờ làm việc: {hours}
+Nhiệm vụ hoàn thành: {tasks}
+Ghi chú: {notes}

@@ -1,0 +1,6 @@
+Xin chào! Đây là dòng 1
+Đây là dòng 2
+Hôm nay tôi học Python
+Python rất thú vị
+File handling giúp lưu trữ dữ liệu
+Tôi đang thực hành đọc và ghi file

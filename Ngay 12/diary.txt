@@ -1,0 +1,9 @@
+Nhật ký học Python
+==================
+Ngày 1: Học biến và kiểu dữ liệu
+Ngày 2: Học vòng lặp và điều kiện
+Ngày 3 (28/10/2025): Học File Handling
+Ngày 3 (28/10/2025): Học File Handling
+Ngày 3 (28/10/2025): Học File Handling
+Ngày 3 (28/10/2025): Học File Handling
+Ngày 3 (28/10/2025): Học File Handling

@@ -1,0 +1,3 @@
+Đây là file nguồn
+Nội dung này sẽ được copy sang file khác
+File handling trong Python rất đơn giản
