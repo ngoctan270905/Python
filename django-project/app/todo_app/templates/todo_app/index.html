@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <!-- Đảm bảo giao diện responsive trên di động -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách công việc (To-Do List)</title>
+    <!-- Tải Tailwind CSS qua CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Sử dụng font Inter cho giao diện hiện đại -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Áp dụng font Inter làm font chữ mặc định */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Tùy chỉnh giao diện checkbox đẹp hơn */
+        .task-checkbox:checked {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+            background-color: #2563eb; /* blue-600 */
+            border-color: #2563eb;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen p-4 sm:p-8 flex items-center justify-center">
+
+<!-- Khung chính của ứng dụng -->
+<div class="max-w-2xl w-full bg-white rounded-xl shadow-2xl p-6 sm:p-8">
+
+    <!-- Tiêu đề -->
+    <header class="mb-6">
+        <h1 class="text-3xl font-bold text-slate-800 text-center">
+            Danh sách công việc
+        </h1>
+    </header>
+
+    <!-- Form thêm công việc mới -->
+    <form method="POST" action="{% url 'task_create' %}"
+          class="flex flex-col sm:flex-row sm:space-x-2 sm:space-y-0 space-y-2 mb-6">
+        {% csrf_token %}
+        <input
+                type="text"
+                name="title"
+                placeholder="Thêm công việc mới..."
+                class="flex-grow w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow"
+                required
+        >
+        <button
+                type="submit"
+                class="bg-blue-600 text-white px-5 py-2.5 rounded-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors flex-shrink-0"
+        >
+            Thêm
+        </button>
+    </form>
+
+
+    <!-- Danh sách các công việc -->
+    <div class="space-y-4">
+        {% for task in tasks %}
+            <div class="flex items-center p-4 rounded-lg shadow-sm border
+        {% if task.completed %}
+            bg-green-50 border-green-200
+        {% else %}
+            bg-slate-50 border-gray-200
+        {% endif %}
+    ">
+                <!-- Checkbox và Tiêu đề -->
+                <div class="flex items-center space-x-3 flex-1 w-0">
+                    <form method="POST" action="{% url 'toggle_task' task.id %}">
+                        {% csrf_token %}
+                        <input
+                                type="checkbox"
+                                name="is_completed"
+                                {% if task.is_completed %}checked{% endif %}
+                                onchange="this.form.submit()"
+                                class="task-checkbox h-5 w-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500 flex-shrink-0"
+                        >
+                    </form>
+
+                    <span class="text-lg font-medium truncate
+                {% if task.completed %}
+                    text-gray-500 line-through
+                {% else %}
+                    text-slate-800
+                {% endif %}
+            " title="{{ task.title }}">
+                {{ task.title }}
+            </span>
+                </div>
+                <!-- Nút Hành động (Sửa / Xoá) -->
+                <div class="space-x-2 flex-shrink-0 ml-4">
+                    <a href="{% url 'task_update' task.id %}"
+                       class="text-sm font-medium text-yellow-600 hover:text-yellow-800 transition-colors">Sửa</a>
+                    <a href="{% url 'task_delete' task.id %}"
+                       class="text-sm font-medium text-red-600 hover:text-red-800 transition-colors">Xoá</a>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center text-gray-500">Chưa có công việc nào.</p>
+        {% endfor %}
+    </div>
+
+
+    <!-- Chân trang (thống kê) -->
+    <footer class="mt-6 pt-4 border-t border-gray-200">
+        <p class="text-center text-sm text-gray-500">
+            Bạn có <span class="font-semibold">{{ incomplete_count }}</span> công việc chưa hoàn thành.
+        </p>
+    </footer>
+
+</div> <!-- Hết khung chính -->
+
+</body>
+</html>

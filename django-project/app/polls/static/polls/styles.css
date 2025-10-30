@@ -1,0 +1,17 @@
+/* ------------------------------------------- */
+/* Quy tắc CSS tùy chỉnh cho Polls List Template */
+/* ------------------------------------------- */
+
+/* Đảm bảo sử dụng font chữ dễ đọc và hiện đại */
+body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+}
+
+/* Hiệu ứng hover nhẹ nhàng cho thẻ <li> để dễ tương tác */
+/* Lớp này áp dụng cho các mục thăm dò ý kiến */
+.poll-item-hover:hover {
+    transform: translateY(-2px);
+    /* Tăng độ sâu bóng đổ khi hover */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}

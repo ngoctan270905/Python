@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách Thăm dò Ý kiến</title>
+    <!-- Tải Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load Static Files (BẮT BUỘC TRONG DJANGO) -->
+    {% load static %}
+    
+    <!-- LIÊN KẾT ĐẾN FILE CSS TÁCH RIÊNG (polls/static/polls/styles.css) -->
+    <link rel="stylesheet" href="{% static 'polls/styles.css' %}"> 
+
+    <!-- LIÊN KẾT ĐẾN FILE JAVASCRIPT TÁCH RIÊNG (polls/static/polls/tailwind_config.js) -->
+    <script src="{% static 'polls/tailwind_config.js' %}"></script>
+    
+</head>
+<body class="bg-gray-50 flex items-start justify-center pt-10 px-4">
+
+    <!-- Container Chính -->
+    <div class="w-full max-w-2xl bg-white shadow-xl rounded-2xl p-6 md:p-10 border border-gray-100">
+
+        <!-- Tiêu đề -->
+        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 border-b pb-4 mb-6 text-center">
+            Danh Sách Các Cuộc Thăm Dò Ý Kiến
+        </h1>
+
+        <!-- Khối chứa nội dung Django Template -->
+        {% if latest_question_list %}
+            
+            <ul class="space-y-4">
+                {% for question in latest_question_list %}
+                    
+                    <!-- Mỗi mục Thăm dò Ý kiến -->
+                    <li class="poll-item-hover transition-all duration-300 transform">
+                        <a href="{% url 'polls:detail' question.id %}"
+                           class="block p-4 md:p-5 bg-white border border-gray-200 rounded-xl
+                                  shadow-sm hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2">
+                            <div class="flex items-center justify-between">
+                                <!-- Văn bản câu hỏi -->
+                                <span class="text-lg md:text-xl font-semibold text-gray-700 hover:text-primary-blue transition-colors duration-200">
+                                    {{ question.question_text }}
+                                </span>
+                                <!-- Icon mũi tên -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-blue opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        {% else %}
+            <!-- Trường hợp không có câu hỏi nào -->
+            <div class="text-center py-10 bg-gray-50 border border-dashed border-gray-300 rounded-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p class="mt-2 text-lg font-medium text-gray-600">
+                    Chưa có cuộc thăm dò ý kiến nào được tạo.
+                </p>
+                <p class="text-sm text-gray-500 mt-1">
+                    Hãy quay lại sau hoặc tạo một cuộc thăm dò mới!
+                </p>
+            </div>
+        {% endif %}
+        <!-- Kết thúc Khối chứa nội dung Django Template -->
+        
+    </div>
+</body>
+</html>

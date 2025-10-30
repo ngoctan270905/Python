@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Thay đổi title -->
+    <title>Cập nhật công việc</title>
+    <!-- Tải Tailwind CSS qua CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Sử dụng font Inter cho giao diện hiện đại -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Áp dụng font Inter làm font chữ mặc định */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen p-4 sm:p-8 flex items-center justify-center">
+
+<!-- Khung chính của ứng dụng -->
+<div class="max-w-2xl w-full bg-white rounded-xl shadow-2xl p-6 sm:p-8">
+
+    <!-- Tiêu đề -->
+    <header class="mb-6">
+        <!-- Thay đổi H1 -->
+        <h1 class="text-3xl font-bold text-slate-800 text-center">
+            Cập nhật công việc
+        </h1>
+    </header>
+
+    <!-- Form cập nhật công việc -->
+    <!-- Khi có logic, form này sẽ có method="POST" và được điền sẵn dữ liệu -->
+    <form method="POST" action="{% url 'task_update' task.id %}" class="space-y-6">
+        {% csrf_token %}
+
+        <!-- Trường Tiêu đề -->
+        <div>
+            <label for="title" class="block text-sm font-semibold text-gray-700 mb-2">
+                Tiêu đề công việc <span class="text-red-500">*</span>
+            </label>
+            <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="Ví dụ: Hoàn thành báo cáo..."
+                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow"
+                    required
+                    value="{{ task.title }}"
+            >
+        </div>
+
+        <!-- Trường Mô tả -->
+        <div>
+            <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">
+                Mô tả (Không bắt buộc)
+            </label>
+            <textarea
+                    id="description"
+                    name="description"
+                    rows="4"
+                    placeholder="Thêm mô tả chi tiết cho công việc..."
+                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow resize-y"
+            >{{ task.description }}</textarea>
+        </div>
+
+        <!-- Nút Hành động -->
+        <div class="flex flex-col sm:flex-row-reverse sm:items-center sm:space-x-4 sm:space-x-reverse">
+            <button
+                    type="submit"
+                    class="w-full sm:w-auto bg-blue-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+            >
+                Lưu thay đổi
+            </button>
+
+            <a href="{% url 'task_list' %}"
+               class="w-full sm:w-auto text-center mt-3 sm:mt-0 px-6 py-2.5 rounded-lg font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors">
+                Huỷ
+            </a>
+        </div>
+    </form>
+
+
+</div> <!-- Hết khung chính -->
+
+</body>
+</html>

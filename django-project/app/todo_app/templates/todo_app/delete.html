@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-m-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Thay đổi title -->
+    <title>Xác nhận xoá công việc</title>
+    <!-- Tải Tailwind CSS qua CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Sử dụng font Inter cho giao diện hiện đại -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Áp dụng font Inter làm font chữ mặc định */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen p-4 sm:p-8 flex items-center justify-center">
+
+<!-- Khung chính của ứng dụng -->
+<div class="max-w-2xl w-full bg-white rounded-xl shadow-2xl p-6 sm:p-8">
+
+    <!-- Tiêu đề -->
+    <header class="mb-6">
+        <!-- Thay đổi H1 -->
+        <h1 class="text-3xl font-bold text-red-600 text-center">
+            Xác nhận xoá công việc
+        </h1>
+    </header>
+
+    <!-- Form xác nhận xoá -->
+    <!-- Trong Django, đây sẽ là form method="POST" -->
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+
+        <!-- Nội dung xác nhận -->
+        <p class="text-center text-lg text-slate-700">
+            Bạn có thực sự chắc chắn muốn xoá công việc này không?
+        </p>
+
+        <!-- Hiển thị công việc sắp bị xoá -->
+        <div class="bg-slate-100 p-4 rounded-lg border border-slate-200">
+            <p class="text-sm text-slate-600">Công việc sẽ bị xoá:</p>
+            <p class="text-lg font-semibold text-slate-800">
+                {{ task.title }}
+            </p>
+        </div>
+
+        <p class="text-center text-sm font-medium text-red-600">
+            Hành động này không thể hoàn tác!
+        </p>
+
+        <!-- Nút Hành động -->
+        <div class="flex flex-col sm:flex-row-reverse sm:items-center sm:space-x-4 sm:space-x-reverse">
+            <!-- Nút Xoá (Submit) -->
+            <button
+                    type="submit"
+                    class="w-full sm:w-auto bg-red-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors"
+            >
+                Vẫn xoá
+            </button>
+
+            <!-- Nút Huỷ -->
+            <a href="{% url 'task_list' %}"
+               class="w-full sm:w-auto text-center mt-3 sm:mt-0 px-6 py-2.5 rounded-lg font-semibold text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors">
+                Huỷ
+            </a>
+        </div>
+    </form>
+
+
+</div> <!-- Hết khung chính -->
+
+</body>
+</html>
