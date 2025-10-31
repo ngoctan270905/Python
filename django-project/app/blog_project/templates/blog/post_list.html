@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Trang chủ - Blog Tin Tức Mới Nhất{% endblock title %}
+
+{% block content %}
+    <section class="mb-16">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 border-l-4 border-indigo-500 pl-4">Bài Viết Nổi Bật</h2>
+        <div class="grid lg:grid-cols-2 gap-8 items-center bg-white p-6 md:p-8 rounded-lg shadow-lg">
+            <div class="overflow-hidden rounded-md">
+                <img src="https://images.unsplash.com/photo-1665686374006-b8f04cf62d57?q=80&w=2940&auto=format&fit=crop" alt="Featured article image" class="object-cover w-full h-80 transform hover:scale-105 transition-transform duration-500">
+            </div>
+            <div class="flex flex-col justify-center">
+                <span class="text-indigo-600 font-semibold text-sm mb-2">CÔNG NGHỆ</span>
+                <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 leading-tight">
+                    <a href="#" class="hover:underline">Tương lai của Trí tuệ nhân tạo: Những xu hướng định hình thế giới</a>
+                </h1>
+                <p class="text-gray-600 mb-6">
+                    AI không còn là khoa học viễn tưởng. Nó đang thay đổi cách chúng ta sống, làm việc và tương tác. Hãy cùng khám phá những đột phá mới nhất.
+                </p>
+                <a href="#" class="text-lg font-bold text-indigo-700 hover:text-indigo-900 transition-colors duration-300">
+                    Đọc thêm &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+
+  <section>
+    <h2 class="text-3xl font-bold text-gray-800 mb-8 border-l-4 border-indigo-500 pl-4">
+        Bài Viết Mới Nhất
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        {% for post in posts %}
+        <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 group">
+            <div class="overflow-hidden">
+                <a href="{% url 'post_detail' post.slug %}">
+                    <img
+                        src="https://images.unsplash.com/photo-1550745165-9bc0b252726a?q=80&w=2940&auto=format&fit=crop"
+                        alt="Blog post image"
+                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+                </a>
+            </div>
+            <div class="p-6">
+                <span class="text-sm font-medium text-indigo-500">Danh mục mẫu</span>
+                <h3 class="text-xl font-bold text-gray-900 mt-2 mb-3 group-hover:text-indigo-700 transition-colors duration-300">
+                    <a href="{% url 'post_detail' post.slug %}">
+                        {{ post.title }}
+                    </a>
+                </h3>
+                <div class="flex items-center text-xs text-gray-500 mt-4">
+                    <span>Bởi Admin</span>
+                    <span class="mx-2">&bull;</span>
+                    <span>{{ post.created_at|date:"d/m/Y" }}</span>
+                </div>
+            </div>
+        </article>
+        {% empty %}
+        <p class="col-span-3 text-center text-gray-500">Chưa có bài viết nào.</p>
+        {% endfor %}
+    </div>
+
+    </section>
+
+{% endblock content %}

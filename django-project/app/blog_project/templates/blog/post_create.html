@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Thêm Bài Viết Mới - Blog{% endblock title %}
+
+{% block content %}
+<section class="py-6">
+  <h2 class="text-3xl font-bold text-gray-800 mb-8 border-l-4 border-indigo-500 pl-4">
+    Thêm Bài Viết Mới
+  </h2>
+
+  <form method="POST" enctype="multipart/form-data"
+        class="bg-white shadow-lg rounded-lg p-8 space-y-6">
+    {% csrf_token %}
+
+    <div>
+      <label for="title" class="block text-sm font-semibold text-gray-700 mb-2">Tiêu đề</label>
+      <input type="text" name="title" id="title"
+             class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+             placeholder="Nhập tiêu đề bài viết">
+    </div>
+
+    <div>
+      <label for="content" class="block text-sm font-semibold text-gray-700 mb-2">Nội dung</label>
+      <textarea name="content" id="content" rows="6"
+                class="w-full border border-gray-300 rounded-md p-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="Nhập nội dung bài viết"></textarea>
+    </div>
+
+    <div class="flex justify-end">
+      <button type="submit"
+        class="bg-indigo-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors duration-300">
+        Đăng bài
+      </button>
+    </div>
+  </form>
+</section>
+{% endblock content %}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}The Insight - Blog Tin Tức & Phân Tích{% endblock title %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+    </style>
+    {% block extra_css %}{% endblock extra_css %}
+</head>
+<body>
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
+        <div>
+            <a href="/" class="text-3xl font-extrabold text-gray-900">The Insight.</a>
+        </div>
+        <div class="hidden md:flex items-center space-x-8 font-medium text-gray-600">
+            <a href="#" class="hover:text-indigo-600 transition-colors duration-300">Công nghệ</a>
+            <a href="#" class="hover:text-indigo-600 transition-colors duration-300">Kinh doanh</a>
+            <a href="#" class="hover:text-indigo-600 transition-colors duration-300">Đời sống</a>
+            <a href="#" class="hover:text-indigo-600 transition-colors duration-300">Du lịch</a>
+        </div>
+        <div>
+            <a href="{% url 'post_create' %}" class="bg-indigo-600 text-white px-5 py-2 rounded-md font-semibold hover:bg-indigo-700 transition-all duration-300 shadow">
+                Thêm Bài Viết
+            </a>
+        </div>
+    </nav>
+</header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {% block content %}
+            {% endblock content %}
+    </main>
+
+    <section id="newsletter" class="bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-white mb-3">Đừng Bỏ Lỡ Tin Tức Nào</h2>
+                <form class="flex flex-col md:flex-row justify-center max-w-lg mx-auto gap-4">
+                    <input type="email" placeholder="Nhập email của bạn..." class="w-full px-5 py-3 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                    <button type="submit" class="bg-indigo-600 text-white font-semibold px-8 py-3 rounded-md hover:bg-indigo-700 transition-colors duration-300">Đăng ký</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <p>&copy; 2025 The Insight. Mọi quyền được bảo lưu.</p>
+            <div class="mt-4 flex justify-center space-x-6">
+                <a href="#" class="hover:text-white transition-colors duration-300">Về chúng tôi</a>
+                <a href="#" class="hover:text-white transition-colors duration-300">Liên hệ</a>
+                <a href="#" class="hover:text-white transition-colors duration-300">Chính sách bảo mật</a>
+            </div>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock extra_js %}
+</body>
+</html>
