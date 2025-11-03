@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Thư Viện - Chi Tiết Sách</title>
+    <!-- Tải Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Thiết lập font Inter cho toàn bộ ứng dụng */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+        }
+
+        /* Tùy chỉnh thanh cuộn cho một số trình duyệt */
+        .sidebar {
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .sidebar::-webkit-scrollbar {
+            display: none; /* Chrome, Safari */
+        }
+
+        /* Transition cho hiệu ứng mượt mà */
+        .transition-colors {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+
+        /* Hiệu ứng focus cho các nút/link */
+        .focus-ring:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.5); /* Blue-500 equivalent */
+        }
+
+        /* Tạo hiệu ứng shadow đẹp hơn cho card */
+        .custom-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+</head>
+<body>
+
+<!--
+    MÔ PHỎNG: base.html (BASE TEMPLATE LAYOUT)
+    Đây là cấu trúc khung chính bao gồm Sidebar và Main Content Area.
+-->
+<div id="base-layout" class="min-h-screen flex">
+
+    <!-- Sidebar (Thanh điều hướng cố định) -->
+    <aside id="sidebar"
+           class="sidebar w-64 bg-gray-800 text-white flex-shrink-0 fixed h-full overflow-y-auto z-20 hidden lg:block shadow-2xl">
+        <div class="p-6">
+            <h1 class="text-3xl font-extrabold text-indigo-400 tracking-wide">LibraryHub</h1>
+            <p class="text-xs mt-1 text-gray-400">Quản Lý Thư Viện</p>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="mt-8 px-4">
+            <a href="#"
+               class="flex items-center p-3 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:bg-gray-700 hover:text-white focus-ring">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                    <path fill-rule="evenodd"
+                          d="M4 5a2 2 0 012-2 2 2 0 002 2h2a2 2 0 002-2 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
+                          clip-rule="evenodd"/>
+                </svg>
+                Danh Sách Sách
+            </a>
+            <a href="#"
+               class="flex items-center mt-3 p-3 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:bg-gray-700 hover:text-white focus-ring">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    <path fill-rule="evenodd"
+                          d="M18 8a2 2 0 012 2v8a2 2 0 01-2 2H2a2 2 0 01-2-2v-8a2 2 0 012-2h12A6 6 0 0012 2a1 1 0 011-1h1a1 1 0 110 2h-1a1 1 0 00-1 1v2h3zM8 9a1 1 0 000 2h4a1 1 0 100-2H8z"
+                          clip-rule="evenodd"/>
+                </svg>
+                Quản Lý Tác Giả
+            </a>
+            <a href="#"
+               class="flex items-center mt-3 p-3 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:bg-gray-700 hover:text-white focus-ring">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M10 2a1 1 0 00-1 1v1a1 1 0 002 0V3a1 1 0 00-1-1zM4 5a2 2 0 00-2 2v2a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2H4zm12 9h.01a1 1 0 100-2H16a1 1 0 000 2zM5 14h.01a1 1 0 100-2H5a1 1 0 000 2zm10 3a1 1 0 100 2h2a1 1 0 100-2h-2zM3 17a1 1 0 100 2h2a1 1 0 100-2H3z"
+                          clip-rule="evenodd"/>
+                </svg>
+                Danh Mục (Categories)
+            </a>
+        </nav>
+
+        <!-- Footer/Logout -->
+        <div class="absolute bottom-0 left-0 w-full p-4 border-t border-gray-700">
+            <a href="#"
+               class="flex items-center p-3 rounded-lg text-sm font-medium transition-colors text-red-400 hover:bg-gray-700 focus-ring">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
+                          clip-rule="evenodd"/>
+                </svg>
+                Đăng Xuất
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex-1 lg:ml-64 flex flex-col transition-all duration-300">
+
+        <!-- Header/Navbar (Phần có thể tùy chỉnh trong base.html) -->
+        <header class="bg-white shadow-md p-4 sticky top-0 z-10">
+            <div class="flex justify-between items-center max-w-7xl mx-auto">
+                <!-- Mobile Menu Button (Hiện ở màn hình nhỏ) -->
+                <button id="mobile-menu-btn"
+                        class="lg:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 focus-ring">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 6h16M4 12h16m-7 6h7"/>
+                    </svg>
+                </button>
+
+                <h2 class="text-xl font-semibold text-gray-800 hidden sm:block">Dashboard</h2>
+
+                <!-- User Profile/Settings -->
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm font-medium text-gray-700 hidden sm:inline">Xin chào, Admin!</span>
+                    <div class="w-10 h-10 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold text-lg cursor-pointer hover:ring-2 hover:ring-indigo-400 focus-ring">
+                        AD
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!--
+            MÔ PHỎNG: book_detail.html (BLOCK CONTENT)
+            Phần nội dung chính của trang Chi Tiết Sách.
+        -->
+        <main id="content-block" class="p-6 md:p-10 flex-1">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 border-b pb-4">
+                    <h1 class="text-3xl font-bold text-gray-900">Chi Tiết Sách</h1>
+                    <div class="flex space-x-3">
+                        <a href="#"
+                           class="bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-lg text-sm font-semibold">
+                            Chỉnh Sửa
+                        </a>
+                        <a href="#"
+                           class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg text-sm font-semibold">
+                            Xóa
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 md:p-8 shadow-lg">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 mb-6">
+                        <h2 class="text-4xl font-extrabold text-gray-900">{{ book.title }}</h2>
+                        {% if book.is_available %}
+                            <span class="mt-3 sm:mt-0 px-3 py-1 text-base font-bold rounded-full bg-green-100 text-green-800 border border-green-300">
+            Đang Có Sẵn
+          </span>
+                        {% else %}
+                            <span class="mt-3 sm:mt-0 px-3 py-1 text-base font-bold rounded-full bg-red-100 text-red-800 border border-red-300">
+            Hết Sách
+          </span>
+                        {% endif %}
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Cột trái: Thông tin chính -->
+                        <div class="lg:col-span-1 space-y-6">
+                            <div class="bg-gray-100 rounded-lg p-6 flex flex-col items-center justify-center h-64 border border-gray-200 shadow-inner">
+                                <span class="text-gray-500 text-lg font-semibold">Ảnh Bìa</span>
+                                <p class="text-3xl font-extrabold mt-2 text-indigo-500">{{ book.title|truncatechars:20 }}</p>
+                            </div>
+                            <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+                                <h3 class="text-lg font-semibold text-indigo-800 mb-2">Thông Tin</h3>
+                                <p class="text-sm text-indigo-700"><span
+                                        class="font-medium">Ngày Xuất Bản:</span> {{ book.published_date|date:"d/m/Y" }}
+                                </p>
+                                <p class="text-sm text-indigo-700"><span class="font-medium">Mã Sách:</span>
+                                    #BOOK{{ book.id }}</p>
+                            </div>
+                        </div>
+
+                        <!-- Cột phải: Chi tiết & tác giả -->
+                        <div class="lg:col-span-2 space-y-8">
+                            <div class="border-b pb-4">
+                                <h3 class="text-2xl font-semibold text-gray-800 mb-3">Chi Tiết</h3>
+                                <p><span class="font-medium text-gray-900">Danh Mục:</span>
+                                    <a href="#" class="text-blue-600 hover:text-blue-800">{{ book.category.name }}</a>
+                                </p>
+                            </div>
+
+                            <div>
+                                <h3 class="text-2xl font-semibold text-gray-800 mb-3">Tác Giả</h3>
+                                <div class="space-y-4">
+                                    {% for author in book.authors.all %}
+                                        <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow transition">
+                                            <h4 class="text-lg font-semibold text-gray-900">{{ author.name }}</h4>
+                                            <p class="text-sm text-gray-600 mt-1">{{ author.bio|default:"(Chưa có tiểu sử)" }}</p>
+                                        </div>
+                                    {% empty %}
+                                        <p class="italic text-gray-500">Chưa có tác giả nào.</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- Footer -->
+        <footer class="p-4 text-center text-sm text-gray-500 border-t mt-8">
+            &copy; 2025 Library Management. Powered by Django.
+        </footer>
+
+    </div>
+
+    <!-- Mobile Sidebar Overlay (Ẩn/Hiện khi menu mobile bật) -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-10 hidden lg:hidden"></div>
+
+</div>
+
+<script>
+    // Logic đơn giản để bật/tắt menu sidebar trên thiết bị di động
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+    mobileMenuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('hidden');
+        sidebarOverlay.classList.toggle('hidden');
+        // Thay đổi vị trí của sidebar cho mobile (từ bên trái)
+        if (!sidebar.classList.contains('hidden')) {
+            sidebar.style.transform = 'translateX(0)';
+        } else {
+            sidebar.style.transform = 'translateX(-100%)';
+        }
+    });
+
+    sidebarOverlay.addEventListener('click', () => {
+        sidebar.classList.add('hidden');
+        sidebarOverlay.classList.add('hidden');
+        sidebar.style.transform = 'translateX(-100%)';
+    });
+
+    // Thêm event listener để xử lý việc hiển thị/ẩn sidebar khi thay đổi kích thước
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 1024) { // Tương đương với breakpoint lg
+            sidebar.classList.remove('hidden');
+            sidebarOverlay.classList.add('hidden');
+            sidebar.style.transform = 'translateX(0)';
+        } else {
+            // Khi trở lại mobile, nếu sidebar đang mở thì đóng lại
+            if (!sidebar.classList.contains('hidden') && !sidebarOverlay.classList.contains('hidden')) {
+                sidebar.classList.add('hidden');
+                sidebarOverlay.classList.add('hidden');
+            }
+            sidebar.style.transform = 'translateX(-100%)';
+        }
+    });
+</script>
+
+</body>
+</html>
